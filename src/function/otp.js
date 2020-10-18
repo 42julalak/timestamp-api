@@ -24,7 +24,7 @@ async function createOtp(tel) {
 
   sms.send({
     to: tel,
-    text: `รหัส OTP ของคุณคือ "${otp}" รหัสอ้างอิง ${ref}`,
+    text: `รหัส OTP ของคุณคือ "${otp}" รหัสอ้างอิง ${ref}, OTP นี้จะหมดอายุใน ${expireTime} นาที`,
     from: "timestamp-api",
   });
 
