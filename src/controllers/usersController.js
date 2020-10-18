@@ -2,6 +2,7 @@ const tokenizer = require("../middleware/tokenizer");
 const model = require("../models/db");
 const statusEnum = require("../enum/status.enum");
 const otpModule = require("../function/otp");
+const dayjs = require("dayjs")
 
 require("dotenv").config();
 
@@ -117,6 +118,7 @@ const usersController = {
       if (success) {
         const user = await model.user.findOne({ tel });
         const token = tokenizer.createToken(user.tel, user.systemRole);
+        const tokenExpire = dayjs().add(10, "hour")
 
         res.json({
           success: true,
@@ -124,9 +126,10 @@ const usersController = {
             user: {
               tel: user.tel,
               name: user.name,
-              role: user.systemRole
+              role: user.systemRole,
             },
-            token
+            token,
+            tokenExpire,
           },
         });
       } else {
