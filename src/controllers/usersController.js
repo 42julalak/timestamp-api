@@ -15,7 +15,9 @@ const usersController = {
 
         res.json({
           success: true,
-          ref,
+          data: {
+            ref,
+          },
         });
       } else {
         res.json({
