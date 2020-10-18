@@ -3,8 +3,8 @@ const dayjs = require("dayjs");
 require("dotenv").config();
 
 const workTime = {
-  hour: 18, //format (0 -23)
-  minute: 45, //format (0-59)
+  hour: 1, //format (0 -23)
+  minute: 00, //format (0-59)
 };
 
 function isLate(time) {
