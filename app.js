@@ -11,6 +11,12 @@ app.use(cors())
 //ROUTER
 app.use('/users', usersRoute)
 
+app.use(function (req, res, next) {
+	var err = new Error('This page not found')
+	err.status = 404
+	next(err)
+})
+
 //Basic Route
 app.get('/', (req, res) => {
   res.send('Timestamper is running...')
