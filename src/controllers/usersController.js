@@ -111,8 +111,7 @@ const usersController = {
 
   async getAuth(req, res) {
     try {
-      const { tel } = req.query;
-      const { otp, ref } = req.body;
+      const { tel, otp, ref } = req.query;
       const { success, message } = await otpModule.checkOtp(otp, ref);
 
       if (success) {
