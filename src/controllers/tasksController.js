@@ -1,4 +1,6 @@
 const model = require("../models/db");
+const dayjs = require("dayjs");
+const tasksModule = require("../function/task");
 
 require("dotenv").config();
 
@@ -7,17 +9,22 @@ const tasksController = {
     try {
       const { tel } = req.body;
       const { name, workRole, systemRole } = await model.user.findOne({ tel });
+      const isLate = tasksModule.isLate(dayjs().format());
 
       const created = await new model.checkIn({
         tel,
         name,
         workRole,
         systemRole,
+        isLate,
       }).save();
 
       res.json({
         success: true,
-        data: created,
+        data: {
+          created,
+          isLate,
+        },
       });
     } catch (e) {
       console.error(`[GOT AN ERROR]: ${e.message}`);

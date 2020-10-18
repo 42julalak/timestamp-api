@@ -1,6 +1,7 @@
 const axios = require("axios");
 const model = require("../models/db");
 const otpStatus = require("../enum/otpStatus.enum");
+const sms = require("./sms");
 
 const dayjs = require("dayjs");
 const isSameOrBefore = require("dayjs/plugin/isSameOrBefore");
@@ -21,11 +22,11 @@ async function createOtp(tel) {
     status: otpStatus.WAITING,
   }).save();
 
-  // sendSms({
-  //   to: tel,
-  //   text: `รหัส OTP ของคุณคือ "${otp}" รหัสอ้างอิง ${ref}`,
-  //   from: "timestamp-api",
-  // });
+  sms.send({
+    to: tel,
+    text: `รหัส OTP ของคุณคือ "${otp}" รหัสอ้างอิง ${ref}, OTP นี้จะหมดอายุใน ${expireTime} นาที`,
+    from: "timestamp-api",
+  });
 
   return created;
 }
@@ -56,21 +57,6 @@ async function checkOtp(otp, ref) {
       message: "ref is invalid",
     };
   }
-}
-
-async function sendSms({ to, text, from }) {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: process.env.INFOBIP_AUTH,
-    },
-  };
-
-  return await axios.post(
-    `${process.env.INFOBIP_API}/sms/2/text/single`,
-    { to, text, from },
-    config
-  );
 }
 
 function randomForm(length, type) {

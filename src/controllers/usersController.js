@@ -2,6 +2,7 @@ const tokenizer = require("../middleware/tokenizer");
 const model = require("../models/db");
 const statusEnum = require("../enum/status.enum");
 const otpModule = require("../function/otp");
+const dayjs = require("dayjs")
 
 require("dotenv").config();
 
@@ -15,7 +16,9 @@ const usersController = {
 
         res.json({
           success: true,
-          ref,
+          data: {
+            ref,
+          },
         });
       } else {
         res.json({
@@ -109,17 +112,25 @@ const usersController = {
 
   async getAuth(req, res) {
     try {
-      const { tel } = req.query;
-      const { otp, ref } = req.body;
+      const { tel, otp, ref } = req.query;
       const { success, message } = await otpModule.checkOtp(otp, ref);
 
       if (success) {
         const user = await model.user.findOne({ tel });
         const token = tokenizer.createToken(user.tel, user.systemRole);
+        const tokenExpire = dayjs().add(10, "hour")
 
         res.json({
           success: true,
-          data: token,
+          data: {
+            user: {
+              tel: user.tel,
+              name: user.name,
+              role: user.systemRole,
+            },
+            token,
+            tokenExpire,
+          },
         });
       } else {
         res.json({
