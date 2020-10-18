@@ -14,11 +14,11 @@ app.use(cors());
 app.use("/users", usersRoute);
 app.use("/tasks", tasksRoute);
 
-app.use(function (req, res, next) {
-  var err = new Error("This page not found");
-  err.status = 404;
-  next(err);
-});
+// app.use(function (req, res, next) {
+//   var err = new Error("This page not found");
+//   err.status = 404;
+//   next(err);
+// });
 
 //Basic Route
 app.get("/", (req, res) => {
