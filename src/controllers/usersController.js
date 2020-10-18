@@ -121,7 +121,11 @@ const usersController = {
         res.json({
           success: true,
           data: {
-            ...user,
+            user: {
+              tel: user.tel,
+              name: user.name,
+              role: user.systemRole
+            },
             token
           },
         });
