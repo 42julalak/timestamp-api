@@ -61,6 +61,7 @@ const checkInSchema = new Schema(
     name: String,
     workRole: String,
     systemRole: String,
+    isLate: Boolean,
   },
   { timestamps: true }
 );
