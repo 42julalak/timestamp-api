@@ -120,7 +120,10 @@ const usersController = {
 
         res.json({
           success: true,
-          data: token,
+          data: {
+            ...user,
+            token
+          },
         });
       } else {
         res.json({
