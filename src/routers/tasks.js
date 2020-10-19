@@ -5,6 +5,7 @@ const tokenizer = require("../middleware/tokenizer");
 
 //CRUD
 router.post("/check-in", tokenizer.checkToken, tasksController.checkIn);
+router.get("/isLate", tokenizer.checkToken, tasksController.isLate)
 router.get(
   "/check-in",
   tokenizer.checkToken,
