@@ -3,7 +3,7 @@ const dayjs = require("dayjs");
 require("dotenv").config();
 
 const workTime = {
-  hour: 1, //format (0 -23)
+  hour: 2, //format (0 -23)
   minute: 00, //format (0-59)
 };
 
