@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 //CRON Service
-// cronJob.start();
+cronJob.start();
 
 const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {

@@ -3,6 +3,7 @@ const model = require("../models/db");
 const statusEnum = require("../enum/status.enum");
 const otpModule = require("../function/otp");
 const dayjs = require("dayjs")
+const humps = require("humps")
 
 require("dotenv").config();
 
@@ -34,7 +35,9 @@ const usersController = {
 
   async createUser(req, res) {
     try {
-      const { form } = req.body;
+      let { form } = req.body;
+      form = humps.camelizeKeys(form)
+
       const created = await new model.user(form).save();
 
       res.json({

@@ -61,7 +61,14 @@ const checkInSchema = new Schema(
     name: String,
     workRole: String,
     systemRole: String,
-    isLate: Boolean,
+    lateDetail: {
+      late: Boolean,
+      detail: String
+    },
+    location: {
+      lat: Number,
+      lng: Number
+    }
   },
   { timestamps: true }
 );
