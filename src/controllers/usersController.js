@@ -82,7 +82,8 @@ const usersController = {
   async updateUserByTel(req, res) {
     try {
       const { tel } = req.params;
-      const { form } = req.body;
+      let { form } = req.body;
+      form = humps.camelizeKeys(form)
       const updated = await model.user.findOneAndUpdate({ tel }, form);
 
       res.json({
