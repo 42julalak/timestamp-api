@@ -8,6 +8,7 @@ require("dotenv").config();
 const tasksController = {
   async checkIn(req, res) {
     try {
+      
       const { tel, location, late } = req.body;
       const { name, workRole, systemRole } = await model.user.findOne({ tel });
 
