@@ -73,11 +73,22 @@ const checkInSchema = new Schema(
   { timestamps: true }
 );
 
+const checkOutSchema = new Schema(
+  {
+    tel: {
+      type: String,
+      required: true,
+    }
+  },
+  { timestamps: true }
+)
+
 const model = {
   user: mongoose.model("users", userSchema),
   authen: mongoose.model("authen", authenSchema),
   otp: mongoose.model("otp", otpSchema),
   checkIn: mongoose.model("checkIn", checkInSchema),
+  checkOut: mongoose.model("checkOut", checkOutSchema)
 };
 
 module.exports = model;
