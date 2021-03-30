@@ -6,6 +6,24 @@ const { isLate } = require("../function/task");
 require("dotenv").config();
 
 const tasksController = {
+  async checkOut(req, res) {
+    try {
+      const { tel } = req.body
+      
+      const created = await new model.checkOut({ tel }).save()
+      
+      res.json({
+        success: true,
+        data: {
+          created,
+        },
+      });
+    } catch (e) {
+      console.error(`[GOT AN ERROR]: ${e.message}`);
+      res.send(`[GOT AN ERROR]: ${e.message}`).status(500);
+    }
+  },
+
   async checkIn(req, res) {
     try {
       
